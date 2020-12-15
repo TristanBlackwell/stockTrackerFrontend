@@ -1,0 +1,76 @@
+#titleContainer {
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+}
+
+#title {
+  letter-spacing: 1px;
+}
+
+#graphContainer {
+  display: flex;
+  justify-content: center;
+}
+
+#graphArea {
+  border: 1px solid red;
+  height: 50vh;
+  width: 80vw;
+}
+
+#tickers {
+  margin-top: 2vh;
+}
+
+#tickerSearch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2vh;
+}
+
+#tickerSearch input {
+  width: 15rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+#tickerSearch button {
+  background-color: rgb(10, 95, 134);
+  border: none;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  font-weight: bold;
+}
+
+#tickersContainer {
+  width: 60vw;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
+}
+
+#tickerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  padding: 0 1rem;
+}
+
+#tickerContainer:hover {
+  background-color: rgba(61, 59, 59, 0.2);
+}
+
+#tickerContainer button {
+  border: none;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+#tickerContainer button:hover {
+  transform: scale(1.5);
+  color: red;
+}
