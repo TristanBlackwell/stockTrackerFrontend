@@ -2,14 +2,6 @@ import React, { Component } from "react";
 
 class Ticker extends Component {
 
-    constructor(props) {
-        super();
-    }
-
-    deleteTicker(e) {
-       
-    }
-
     render() {
         return (
             <div id="tickerContainer">

@@ -1,19 +1,20 @@
 
+import React, { Component } from "react";
 import './App.css';
-import Graph from "./components/Graph";
 import Tickers from "./components/Tickers";
 
-function App() {
+class App extends Component {
 
-  return (
-    <div className="App">
-      <div id="titleContainer">
-        <h1 id="title">Stock Tracker</h1>
+  render() {
+    return (
+      <div className="App">
+        <div id="titleContainer">
+          <h1 id="title">Stock Tracker</h1>
+        </div>
+        <Tickers />
       </div>
-      <Graph />
-      <Tickers />
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

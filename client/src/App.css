@@ -6,16 +6,17 @@
 
 #title {
   letter-spacing: 1px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 #graphContainer {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #graphArea {
-  border: 1px solid red;
-  height: 50vh;
+  height: 60vh;
   width: 80vw;
 }
 
@@ -26,6 +27,7 @@
 #tickerSearch {
   display: flex;
   justify-content: center;
+  margin-top: -5vh;
   margin-bottom: 2vh;
 }
 
@@ -34,6 +36,7 @@
   height: 2.5rem;
   font-size: 1.5rem;
   text-transform: uppercase;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 #tickerSearch button {
@@ -42,6 +45,10 @@
   color: white;
   border-radius: 0 5px 5px 0;
   font-weight: bold;
+}
+
+#tickerSearch button:hover {
+  background-color: rgb(8, 73, 104);
 }
 
 #tickersContainer {
@@ -58,6 +65,7 @@
   justify-content: space-between;
   border-bottom: 1px solid gray;
   padding: 0 1rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 #tickerContainer:hover {
@@ -71,6 +79,6 @@
 }
 
 #tickerContainer button:hover {
-  transform: scale(1.5);
-  color: red;
+  background-color: rgb(141, 135, 135);
+  border-radius: 5px;
 }
