@@ -1,11 +1,9 @@
-
-import React, { Component } from "react";
+import React from "react";
 import './App.css';
 import Tickers from "./components/Tickers";
 
-class App extends Component {
+function App() {
 
-  render() {
     return (
       <div className="App">
         <div id="titleContainer">
@@ -14,7 +12,6 @@ class App extends Component {
         <Tickers />
       </div>
     );
-  }
 }
 
 export default App;

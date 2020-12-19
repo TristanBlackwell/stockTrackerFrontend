@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import socketIOClient, { io } from "socket.io-client";
 import Graph from "./Graph";
 import Ticker from "./Ticker";
 
@@ -9,19 +9,66 @@ class Tickers extends Component {
         super();
 
         this.state = ({
+            socket: null,
             search: "",
             symbols: [],
             count: 0,
-            maxCount: -1 // Number of symbols in the DB used for rendering component
+            maxCount: -1, // Number of symbols in the DB used for rendering component
         })
 
         this.searchSymbol = this.searchSymbol.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.testSymbol = this.testSymbol.bind(this);
+        this.configureSocket = this.configureSocket.bind(this);
+    }
+
+    configureSocket = () => {
+        let socket = socketIOClient(process.env.REACT_APP_BACKEND);
+
+        socket.on("connection", () => {
+            console.log("Backend connected");
+        })
+
+        socket.on("symbol_list", res => {
+            this.setState({
+                symbols: [],
+                count: 0,
+                maxCount: 0
+            })
+
+            res[1].forEach(symbol => {
+                this.setState(state => {
+                    const symbols = state.symbols.concat(symbol.name);
+
+                    return {
+                        symbols,
+                        count: this.state.count + 1,
+                        maxCount: res[0]
+                    }
+                })
+            })
+        });
+
+        socket.on("created", data => {
+            if (data.msg === "Symbol saved") {
+                socket.emit("update");
+            }
+        })
+
+        socket.on("deleted", data => {
+            if (data.msg === "Symbol deleted") {
+                socket.emit("update");
+            }
+        })
+
+        this.setState({
+            socket: socket
+        })
     }
 
     async searchSymbol() {
+
         if (this.state.symbols.includes(this.state.search)) {
             alert("You already have this symbol.");
         } else {
@@ -36,12 +83,9 @@ class Tickers extends Component {
                     alert("Bad code");
                 } else {
                     if (goodCode) {
-                        const requestOptions = {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ name: this.state.search })
-                        };
-                        fetch(process.env.REACT_APP_BACKEND, requestOptions)
+                        this.state.socket.emit("createTicker", this.state.search);
+
+                        /*fetch(process.env.REACT_APP_BACKEND, requestOptions)
                             .then(res => res.json())
                             .then(res => {
                                 if (res.created === false) {
@@ -57,9 +101,9 @@ class Tickers extends Component {
                                     })
                                 }
                             })
-                        .catch(err => console.log(err))
+                        .catch(err => console.log(err))*/
                     } else {
-                        alert("Incorrect code")
+                        alert("Bad code")
                     }
                 }
             }
@@ -91,6 +135,9 @@ class Tickers extends Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name: name })
         };
+
+        this.state.socket.emit("deleteTicker", name);
+
         fetch(process.env.REACT_APP_BACKEND + "delete", requestOptions)
             .then(res => res.json())
             .then(res => {
@@ -113,22 +160,11 @@ class Tickers extends Component {
     }
 
     componentDidMount() {
+        this.configureSocket();
+    }
 
-        fetch(process.env.REACT_APP_BACKEND)
-            .then(res => res.json().then(data => {
-                data.results[1].forEach(symbol => {
-                    this.setState(state => {
-                        const symbols = state.symbols.concat(symbol.name)
-    
-                        return {
-                            symbols,
-                            count: this.state.count + 1,
-                            maxCount: data.results[0]
-                        }
-                    })
-                })
-            }))
-            .catch(err => console.log(err))
+    componentWillUnmount() {
+        this.socket.disconnect();
     }
 
     render() {
@@ -144,7 +180,7 @@ class Tickers extends Component {
                             placeholder="Search..." 
                             value={this.state.search} 
                             onChange={this.handleSearchChange}/>
-                            <div class="search"></div>
+                            <div className="search"></div>
                         <button type="submit" onClick={this.searchSymbol}>Search</button>
                     </div>
                     <div id="tickersContainer">
@@ -153,11 +189,14 @@ class Tickers extends Component {
                         })}
                     
                     </div>
+                    
                 </div>
             )
         } else {
             return (
-                <h1>Loading...</h1>
+                <div>
+                    <h1>Loading...</h1>
+                </div>
             )
         }
     }
