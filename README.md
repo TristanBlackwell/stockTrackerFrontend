@@ -1,5 +1,9 @@
 # stockTrackerFrontend
 
-Allows users to input stock symbols in order to view the data on a chart allowing comparison of prices over history.
+Input stock symbol tickers to view a chart allowing comparison of daily prices over a given period of time.
 
-React App connected to Express backend using MongoDB.
+React App utilising highCharts dynamic charting and socket.io for live updating.
+
+Connected to MongoDB storage via express, Node app.
+
+Backend located at stockTrackerBackend
