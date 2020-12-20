@@ -28,6 +28,10 @@ class Graph extends Component {
         this.props.symbols.forEach(async (symbol) => {
             const response = await fetch("https://www.quandl.com/api/v3/datasets/EOD/" + symbol + "?start_date=2017-01-01&end_date=2020-12-01&api_key=" + process.env.REACT_APP_QUANDL_KEY);
             const json = await response.json();
+            if (json.quandl_error) {
+                alert("error retrieving data");
+            }
+            
             this.setState(state => {
                 const tickerData = state.tickerData.concat(json);
 
