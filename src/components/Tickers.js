@@ -179,7 +179,9 @@ class Tickers extends Component {
                             value={this.state.search} 
                             onChange={this.handleSearchChange}/>
                             <div className="search"></div>
-                        <button type="submit" onClick={this.searchSymbol}>Search</button>
+                        <button type="submit" onClick={this.searchSymbol}>
+                        <i className="fas fa-search"></i>
+                        </button>
                     </div>
                     {this.state.err === null ? "" : <div>{this.state.err}</div>}
                     <div id="tickersContainer">

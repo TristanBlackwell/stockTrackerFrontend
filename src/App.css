@@ -1,3 +1,8 @@
+body {
+  background-color: #f0f2f5;
+  font-family: "Oswald";
+}
+
 #titleContainer {
   display: flex;
   justify-content: center;
@@ -6,7 +11,6 @@
 
 #title {
   letter-spacing: 1px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 #graphContainer {
@@ -27,28 +31,35 @@
 #tickerSearch {
   display: flex;
   justify-content: center;
-  margin-top: -5vh;
+  margin-top: -12vh;
   margin-bottom: 2vh;
 }
 
 #tickerSearch input {
   width: 15rem;
   height: 2.5rem;
+  margin-right: 1vw;
   font-size: 1.5rem;
   text-transform: uppercase;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Oswald", "Arial Narrow", Arial, sans-serif;
+  border: none;
+  border-bottom: 1px solid grey;
+  background-color: #f0f2f5;
+}
+
+input:focus {
+  outline: none;
 }
 
 #tickerSearch button {
-  background-color: rgb(10, 95, 134);
+  background-color: transparent;
   border: none;
-  color: white;
-  border-radius: 0 5px 5px 0;
-  font-weight: bold;
+  color: grey;
+  transform: scale(1.25);
 }
 
 #tickerSearch button:hover {
-  background-color: rgb(8, 73, 104);
+  transform: scale(1.5);
 }
 
 #tickersContainer {
@@ -63,7 +74,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid grey;
   padding: 0 1rem;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
@@ -79,6 +90,5 @@
 }
 
 #tickerContainer button:hover {
-  background-color: rgb(141, 135, 135);
-  border-radius: 5px;
+  color: red;
 }
